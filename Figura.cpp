@@ -10,8 +10,8 @@ Figura::Figura(int n)               // конструктор с параметрами
 }
 Figura::~Figura()   // деструктор, не уверен, что правильно освобождаю память?!
 {
-    if (lenght) delete lenght;
-    if (angle) delete angle;
+    if (lenght) delete[] lenght;
+    if (angle) delete[] angle;
 }
 
 void Figura::setQtySide(int n)
