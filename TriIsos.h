@@ -1,8 +1,12 @@
 #pragma once
 #include "Triangle.h"
 
-class TriIsos : public Triangle    // равнобедренный треугольник
+//равнобедренный треугольник(стороны a и c равны, углы A и C равны);
+class TriIsos : public Triangle
 {
 public:
-    TriIsos(int, int, short, short);
+    TriIsos(int, int, int, short, short, short);
+    
+    void exepLen(int a, int b, int c);
+    void exepAng(short a, short b, short c);
 };

@@ -5,25 +5,19 @@ Triangle::Triangle() : Figura(3) { ; }
 
 void Triangle::setLengh(int a, int b, int c)
 {
-    if (!getQtySide() || a <= 0 || b <= 0 || c <= 0) figInit = false;
-    else
-    {
-        lenght[0] = static_cast<unsigned int>(a);
-        lenght[1] = static_cast<unsigned int>(b);
-        lenght[2] = static_cast<unsigned int>(c);
-        if (angle[0] && angle[1] && angle[2]) figInit = true;
-        else figInit = false;
-    }
+    exepLen(a, b, c);
 }
 void Triangle::setAngle(short a, short b, short c)
 {
-    if (!getQtySide() || a <= 0 || b <= 0 || c <= 0) figInit = false;
-    else
+    if (a + b + c != 180)
     {
-        angle[0] = static_cast<unsigned short>(a);
-        angle[1] = static_cast<unsigned short>(b);
-        angle[2] = static_cast<unsigned short>(c);
-        if (lenght[0] && lenght[1] && lenght[2]) figInit = true;
-        else figInit = false;
+        throw FiguraExeption("Сумма углов не равна 180");
     }
+    exepAng(a, b, c);
+}
+void Triangle::exepLen(int a, int b, int c) { return; }
+void Triangle::exepAng(short a, short b, short c) { return; }
+void Triangle::exepQtySide()
+{
+    if (getQtySide() != 3) throw FiguraExeption("Число углов не равно 3");
 }

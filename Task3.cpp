@@ -13,6 +13,7 @@
 #include "myFunc.h"
 
 // как старое задание, только с внешними файлами
+// добавил исключения
 
 int main(int argc, char** argv)
 {
@@ -20,50 +21,222 @@ int main(int argc, char** argv)
     system("chcp 1251");            // настраиваем кодировку консоли
     std::system("cls");
 
-    std::cout << "Задача 2. Фигуры. Стороны и углы\n"
-        << "--------------------------------\n\n";
+    std::cout << "Задача 2. Исключения в конструкторах\n"
+              << "------------------------------------\n\n";
 
     Figura* fig = nullptr;    // указатель на объект типа Figura
+    MyFigData data = {"Фигура",0,0,0,0,0,0,0,0};
 
     // треугольники ----------------------
-    Triangle triangle;
-    triangle.setLengh(10, 20, 30);
-    triangle.setAngle(50, 60, 70);
-    print_info("Треугольник", &triangle);
+    try
+    {
+        data.name = "Треугольник";
+        data.lenA = 10;
+        data.lenB = 20;
+        data.lenC = 30;
+        data.angA = 50;
+        data.angB = 60;
+        data.angC = 70;
+        print_info(data);
 
-    fig = new TriRight(10, 20, 30, 50, 60);   // вот тут я присваиваю указателю динамически выделенный объект
-    print_info("Прямоугольный треугольник", fig);
-    //delete tri;     // тут его нужно удалять? Или в классе нужно делать деструктор (и как делать)?
+        Triangle triangle;
+        triangle.setLengh(data.lenA, data.lenB, data.lenC);
+        triangle.setAngle(data.angA, data.angB, data.angC);
+        fig = &triangle;
 
-    fig = new TriIsos(10, 20, 50, 60);
-    print_info("Равнобедренный треугольник", fig);
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
 
-    fig = new TriEquil(30);
-    print_info("Равносторонний треугольник", fig);
+    try
+    {
+        data.name = "Прямоугольный треугольник";
+        data.lenA = 10;
+        data.lenB = 20;
+        data.lenC = 30;
+        data.angA = 50;
+        data.angB = 40;
+        data.angC = 90;
+        print_info(data);
 
-    fig = new TriEquil(-10);  // ошибка инициализации, длина стороны = -10 !!!
-    print_info("Еще равносторонний треугольник", fig);
+        fig = new TriRight(data.lenA, data.lenB, data.lenC, data.angA, data.angB, data.angC);
+        
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
 
+    try
+    {
+        data.name = "Равнобедренный треугольник";
+        data.lenA = 10;
+        data.lenB = 20;
+        data.lenC = 30;
+        data.angA = 65;
+        data.angB = 50;
+        data.angC = data.angA;
+        print_info(data);
+
+        fig = new TriIsos(data.lenA, data.lenB, data.lenC, data.angA, data.angB, data.angC);
+
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
+
+    try
+    {
+        data.name = "Равносторонний треугольник";
+        data.lenA = 30;
+        data.lenB = data.lenA;
+        data.lenC = data.lenA;
+        data.angA = 60;
+        data.angB = data.angA;
+        data.angC = data.angA;
+        print_info(data);
+
+        fig = new TriEquil(data.lenA, data.lenB, data.lenC, data.angA, data.angB, data.angC);
+
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
+
+    std::cout << std::endl;
     // четырехугольники ----------------------
-    Quad quad;
-    quad.setLengh(10, 20, 30, 40);
-    quad.setAngle(50, 60, 70, 80);
-    print_info("Четырёхугольник", &quad);
+    try
+    {
+        data = { "Четырёхугольник" , 10,20,30,40,50,60,125,125 };
+        print_info(data);
 
-    fig = new Rectangle(10, 20);
-    print_info("Прямоугольник", fig);
+        Quad quad;
+        quad.setLengh(data.lenA, data.lenB, data.lenC, data.lenD);
+        quad.setAngle(data.angA, data.angB, data.angC, data.angD);
 
-    fig = new Square(20);
-    print_info("Квадрат", fig);
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
 
-    fig = new Parall(20, 30, 30, 40);;
-    print_info("Параллелограмм", fig);
+    try
+    {
+        data = { "Прямоугольник" , 10,20,10,20,90,100,80,90 };
+        print_info(data);
 
-    fig = new Rhombus(30, 30, 40);;
-    print_info("Ромб", fig);
-    delete fig;     // а тут его нужно удалять? Или в классе нужно делать деструктор (и как делать)?
-    fig = nullptr;
+        fig = new Rectangle(data.lenA, data.lenB, data.lenC, data.lenD,
+            data.angA, data.angB, data.angC, data.angD);
+
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
+
+    try
+    {
+        data = { "Квадрат" , 20,20,20,20,90,90,90,90 };
+        print_info(data);
+
+        fig = new Square(data.lenA, data.lenB, data.lenC, data.lenD,
+            data.angA, data.angB, data.angC, data.angD);
+        fig->setQtySide(9);
+
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
+
+    try
+    {
+        data = { "Параллелограмм" , 20,30,20,30,85,95,85,95 };
+        print_info(data);
+
+        fig = new Parall(data.lenA, data.lenB, data.lenC, data.lenD,
+            data.angA, data.angB, data.angC, data.angD);
+
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
+
+    try
+    {
+        data = { "Ромб" , 30,30,30,30,80,100,80,100 };
+        print_info(data);
+
+        fig = new Rhombus(data.lenA, data.lenB, data.lenC, data.lenD,
+            data.angA, data.angB, data.angC, data.angD);
+
+        std::cout << "создан" << std::endl;
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
 
 
     return 0;
 }
+
+/*
+Задача 2. Исключения в конструкторах
+В этом задании вы запретите создавать экземпляры классов геометрических фигур с неправильными данными.
+
+Создайте собственный класс исключения для ошибки создания геометрической фигуры.
+Подумайте, от какого типа его унаследовать, и не забудьте поместить новый класс в отдельную пару файлов.
+
+Возьмите иерархию классов из предыдущего задания.
+Теперь при создании экземпляров классов вам нужно проверять аргументы, которые поступают на вход конструктору.
+Если аргументы не соответствуют ограничениям, объект не должен быть создан, а на консоль должно быть выведено
+соответствующее сообщение. Причина ошибки должна быть сформулирована на уровне конструктора и выведена на
+экран при обработке ошибок.
+
+Ограничения:
+
+фигура (количество сторон равно 0);
+треугольник (стороны и углы произвольные, количество сторон равно 3, сумма углов равна 180);
+прямоугольный треугольник (угол C всегда равен 90);
+равнобедренный треугольник (стороны a и c равны, углы A и C равны);
+равносторонний треугольник (все стороны равны, все углы равны 60);
+четырёхугольник (стороны и углы произвольные, количество сторон равно 4, сумма углов равна 360);
+прямоугольник (стороны a,c и b,d попарно равны, все углы равны 90);
+квадрат (все стороны равны, все углы равны 90);
+параллелограмм (стороны a,c и b,d попарно равны, углы A,C и B,D попарно равны);
+ромб (все стороны равны, углы A,C и B,D попарно равны).
+
+Для проверки попробуйте создать разные геометрические фигуры — правильные и неправильные.
+В случае успешного создания выводите на экран сообщение об успешном создании и параметры фигуры.
+В случае, если создание не удалось, выведите параметры фигуры и причину ошибки.
+
+
+Пример работы программы
+Консоль
+Прямоугольный треугольник (стороны 3, 4, 5; углы 30, 60, 90) создан
+
+Прямоугольный треугольник (стороны 3, 4, 5; углы 40, 60, 90) не был создан. Причина: сумма углов не равна 180
+*/

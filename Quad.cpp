@@ -1,33 +1,27 @@
 #include "Quad.h"
 
-Quad::Quad()  // конструктор по умолчанию
-{
-    setQtySide(4);  // создаю четырехугольник
-}
+// конструктор по умолчанию, запускает конструктор родителя с параметрами
+Quad::Quad() : Figura(4) { ; }
 
 void Quad::setLengh(int a, int b, int c, int d)
 {
-    if (!getQtySide() || a <= 0 || b <= 0 || c <= 0 || d <= 0) figInit = false;
-    else
-    {
-        lenght[0] = static_cast<unsigned int>(a);
-        lenght[1] = static_cast<unsigned int>(b);
-        lenght[2] = static_cast<unsigned int>(c);
-        lenght[3] = static_cast<unsigned int>(d);
-        if (angle[0] && angle[1] && angle[2] && angle[3]) figInit = true;
-        else figInit = false;
-    }
+    exepLen(a, b, c, d);
 }
+
 void Quad::setAngle(short a, short b, short c, short d)
 {
-    if (!getQtySide() || a <= 0 || b <= 0 || c <= 0 || d <= 0) figInit = false;
-    else
+    if (a + b + c + d != 360)
     {
-        angle[0] = static_cast<unsigned short>(a);
-        angle[1] = static_cast<unsigned short>(b);
-        angle[2] = static_cast<unsigned short>(c);
-        angle[3] = static_cast<unsigned short>(d);
-        if (lenght[0] && lenght[1] && lenght[2] && lenght[3]) figInit = true;
-        else figInit = false;
+        throw FiguraExeption("Сумма углов не равна 360");
     }
+    exepAng(a, b, c, d);
+}
+
+void Quad::exepLen(int a, int b, int c, int d) { return; }
+
+void Quad::exepAng(short a, short b, short c, short d) { return; }
+
+void Quad::exepQtySide()
+{
+    if (getQtySide() != 4) throw FiguraExeption("Число углов не равно 4");
 }

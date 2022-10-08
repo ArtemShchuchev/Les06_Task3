@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Figura.cpp" />
+    <ClCompile Include="FiguraExeption.cpp" />
     <ClCompile Include="myFunc.cpp" />
     <ClCompile Include="Parall.cpp" />
     <ClCompile Include="Quad.cpp" />
@@ -142,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Figura.h" />
+    <ClInclude Include="FiguraExeption.h" />
     <ClInclude Include="myFunc.h" />
     <ClInclude Include="Parall.h" />
     <ClInclude Include="Quad.h" />
