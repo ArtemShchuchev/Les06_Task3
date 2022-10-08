@@ -27,6 +27,19 @@ int main(int argc, char** argv)
     Figura* fig = nullptr;    // указатель на объект типа Figura
     MyFigData data = {"Фигура",0,0,0,0,0,0,0,0};
 
+    try
+    {
+        std::cout << "Фигура (число сторон 0) ";
+        Figura asd(0);
+    }
+    catch (const FiguraExeption& s)
+    {
+        std::cout << "не был создан. Причина: "
+            << s.what() << std::endl;
+    }
+
+    std::cout << std::endl;
+
     // треугольники ----------------------
     try
     {
@@ -116,6 +129,7 @@ int main(int argc, char** argv)
     }
 
     std::cout << std::endl;
+
     // четырехугольники ----------------------
     try
     {

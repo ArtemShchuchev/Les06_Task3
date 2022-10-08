@@ -2,7 +2,9 @@
 
 Figura::Figura()                    // конструктор по умолчанию
 {
-    setQtySide(0);
+    qtySide = 0;
+    lenght = nullptr;
+    angle = nullptr;
 }
 Figura::Figura(int n)               // конструктор с параметрами
 {
@@ -10,23 +12,18 @@ Figura::Figura(int n)               // конструктор с параметрами
 }
 Figura::~Figura()   // деструктор, не уверен, что правильно освобождаю память?!
 {
-    delete[] lenght;
-    delete[] angle;
+    if (lenght) delete[] lenght;
+    if (angle) delete[] angle;
 }
 
 void Figura::setQtySide(int n)
 {
-    if (n <= 0)
-    {
-        throw FiguraExeption("Попытка создать фигуру без сторон");
-    }
-    else
-    {
-        qtySide = static_cast<unsigned int>(n);
-        lenght = new unsigned int[n](); // длины в кол-ве "n"
-        angle = new unsigned short[n](); // углы в кол-ве "n"
-    }
+    if (n < 0) n = 0;
+    qtySide = static_cast<unsigned int>(n);
     exepQtySide();
+
+    lenght = new unsigned int[n](); // длины в кол-ве "n"
+    angle = new unsigned short[n](); // углы в кол-ве "n"
 }
 unsigned int Figura::getQtySide() { return qtySide; }
 // не сущ. стророна фигуры имеет длину/угол = 0
@@ -41,4 +38,11 @@ unsigned short Figura::getAng(int num)
     else return angle[num];
 }
 
-void Figura::exepQtySide() { return; }
+void Figura::exepQtySide()
+{
+    if (lenght) delete[] lenght;
+    if (angle) delete[] angle;
+    lenght = nullptr;
+    angle = nullptr;
+    if (getQtySide() <= 0) throw FiguraExeption("Попытка создать фигуру без сторон");
+}
