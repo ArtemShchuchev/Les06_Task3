@@ -6,6 +6,9 @@ Triangle::Triangle() : Figura(3) { ; }
 void Triangle::setLengh(int a, int b, int c)
 {
     exepLen(a, b, c);
+    lenght[0] = a;
+    lenght[1] = b;
+    lenght[2] = c;
 }
 void Triangle::setAngle(short a, short b, short c)
 {
@@ -14,6 +17,9 @@ void Triangle::setAngle(short a, short b, short c)
         throw FiguraExeption("Сумма углов не равна 180");
     }
     exepAng(a, b, c);
+    angle[0] = a;
+    angle[1] = b;
+    angle[2] = c;
 }
 void Triangle::exepLen(int a, int b, int c) { return; }
 void Triangle::exepAng(short a, short b, short c) { return; }

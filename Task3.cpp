@@ -89,21 +89,19 @@ int main(int argc, char** argv)
 
     try
     {
-        // Тут что-то не так!
         data.name = "Равнобедренный треугольник";
         data.lenA = 10;
         data.lenB = 20;
-        data.lenC = 10; // вот С = 10 и треугольник соответственно создан, что не так? где нули?
+        data.lenC = 10;
         data.angA = 65;
         data.angB = 50;
         data.angC = data.angA;
         print_info(data);
 
-        // внутри класса TriIsos, тоже добавил вывод в консоль, чтобы посмотреть
-        // переменные изнутри класса
         fig = new TriIsos(data.lenA, data.lenB, data.lenC, data.angA, data.angB, data.angC);
 
         std::cout << "создан" << std::endl;
+
         delete fig;
     }
     catch (const FiguraExeption& s)
